@@ -4,9 +4,6 @@ import { OrderService } from '../service/OrderService';
 
 
 export default class EditOrder extends Component {
-    useEffect(() => {
-
-    });
 
     constructor() {
 
