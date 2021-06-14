@@ -23,7 +23,6 @@ import {
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
-import EditOrder from './editOrder';
 
 
 
@@ -276,7 +275,57 @@ export default class Order extends Component {
 
 
                         <Route path="/orders/edit/:id" exact>
-                                <EditOrder />
+                            <span className="p-float-label">
+
+                                <InputText style={{ width: "100%" }} value={this.state.order.orderNumber} id="orderNumber" onChange={(e) => {
+                                    let val = e.target.value;
+                                    this.setState(prevState => {
+
+                                        let order = Object.assign({}, prevState.order);
+                                        order.orderNumber = val;
+                                        return { order };
+
+                                    })
+                                }
+                                } />
+                                <label htmlFor="id">N°</label>
+                            </span>
+                            <br></br>
+                            <br></br>
+                            <span className="p-float-label">
+                                <InputText style={{ width: "100%" }} id="customer" value={this.state.order.customer} onChange={(e) => {
+                                    let val = e.target.value;
+                                    this.setState(prevState => {
+
+                                        let order = Object.assign({}, prevState.order);
+                                        order.customer = val;
+                                        return { order };
+
+                                    })
+                                }
+                                } />
+                                <label htmlFor="customer">CUSTOMER</label>
+                            </span>
+                            <br></br>
+                            <br></br>
+
+                            <Dropdown value={this.state.selectedStatus} options={this.status} onChange={this.onStatusChange}
+                                optionLabel="name" placeholder="Select status" />
+                            <br></br>
+                            <br></br>
+
+                            <Button icon="pi pi-plus" label="Add Item" onClick={(e) => this.op.toggle(e)} aria-haspopup aria-controls="overlay_panel" className="select-product-button" />
+                            <Button icon="pi pi-check" label="Save" onClick={true} className="select-product-button" />
+
+
+                            <DataTable header={header} value={this.state.arrItems} paginator={true} rows={4} selectionMode="single"
+                                selection={this.state.selectedItem} onSelectionChange={e => this.setState({ selectedItem: e.value })}>
+                                <Column field="id" header="ID"></Column>
+                                <Column field="name" header="NAME"></Column>
+                                <Column field="quantity" header="QUANTITY"></Column>
+                                <Column field="unitPrice" header="PRICE"></Column>
+                                <Column field="amount" header="TOTAL"></Column>
+                            </DataTable>
                         </Route>
                     </Switch>
 
